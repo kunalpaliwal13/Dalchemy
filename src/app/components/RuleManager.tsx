@@ -2,14 +2,20 @@
 
 import { useState } from "react";
 import { AllocationRule } from "../lib/types";
-import { string } from "zod/v4";
 
 interface RuleManagerProps {
   rules: AllocationRule[];
   setRules: (rules: AllocationRule[]) => void;
+  taskColumns: string[];
+  workerColumns: string[];
 }
 
-export default function RuleManager({ rules, setRules }: RuleManagerProps) {
+export default function RuleManager({
+  rules,
+  setRules,
+  taskColumns,
+  workerColumns,
+}: RuleManagerProps) {
   // Controlled inputs
   const [taskField, setTaskField] = useState("");
   const [taskOperator, setTaskOperator] = useState("=");
@@ -27,21 +33,24 @@ export default function RuleManager({ rules, setRules }: RuleManagerProps) {
       return;
     }
 
-   const newRule: AllocationRule = {
-    id: Date.now().toString(36) + Math.random().toString(36).substring(2, 8),
-    taskFilter: {
-    field: taskField,
-    operator: taskOperator as AllocationRule["taskFilter"]["operator"],
-    value: taskValue,
-  },
-  workerFilter: {
-    field: workerField,
-    operator: workerOperator as AllocationRule["workerFilter"]["operator"],
-    value: workerValue,
-  },
-  maxTasksPerWorker: parseInt(maxTasks || "1", 10),
-};
-
+    const newRule: AllocationRule = {
+      id:
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2, 8),
+      taskFilter: {
+        field: taskField,
+        operator:
+          taskOperator as AllocationRule["taskFilter"]["operator"],
+        value: taskValue,
+      },
+      workerFilter: {
+        field: workerField,
+        operator:
+          workerOperator as AllocationRule["workerFilter"]["operator"],
+        value: workerValue,
+      },
+      maxTasksPerWorker: parseInt(maxTasks || "1", 10),
+    };
 
     setRules([...rules, newRule]);
 
@@ -54,25 +63,35 @@ export default function RuleManager({ rules, setRules }: RuleManagerProps) {
     setWorkerValue("");
     setMaxTasks("");
   };
-
+    // bg-[#1B1B1B]/80
   return (
-    <div className="w-full max-w-3xl bg-[#1B1B1B]/80 p-6 rounded-lg mt-8">
-      <h2 className="text-xl font-bold mb-4">Allocation Rules</h2>
-      <div className="flex flex-wrap gap-4 mb-4">
+    <div className="w-full bg-[#1B1B1B]/80 flex max-w-full gap-3 p-6 rounded-lg mt-4 shrink-0">
+      
+
+      <div className="w-2/3">
+      <h2 className="text-xl font-medium mb-4">Allocate your Custom Rules</h2>
+      <div className="flex  flex-wrap gap-4 mb-4 flex-col ">
         {/* Task Filter */}
+      <div className="grid grid-cols-3 gap-7">
         <div className="flex flex-col">
-          <label className="text-sm">Task Field</label>
-          <input
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+          <label className="text-lg">Task Field</label>
+          <select
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={taskField}
             onChange={(e) => setTaskField(e.target.value)}
-            placeholder="e.g., PRIORITYLEVEL"
-          />
+          >
+            <option value="">Select Field</option>
+            {taskColumns.map((col) => (
+              <option key={col} value={col}>
+                {col}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex flex-col">
-          <label className="text-sm">Operator</label>
+          <label className="text-lg">Operator</label>
           <select
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={taskOperator}
             onChange={(e) => setTaskOperator(e.target.value)}
           >
@@ -85,9 +104,9 @@ export default function RuleManager({ rules, setRules }: RuleManagerProps) {
           </select>
         </div>
         <div className="flex flex-col">
-          <label className="text-sm">Value</label>
+          <label className="text-lg">Value</label>
           <input
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={taskValue}
             onChange={(e) => setTaskValue(e.target.value)}
             placeholder="e.g., 2"
@@ -96,18 +115,24 @@ export default function RuleManager({ rules, setRules }: RuleManagerProps) {
 
         {/* Worker Filter */}
         <div className="flex flex-col">
-          <label className="text-sm">Worker Field</label>
-          <input
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+          <label className="text-lg">Worker Field</label>
+          <select
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={workerField}
             onChange={(e) => setWorkerField(e.target.value)}
-            placeholder="e.g., QUALIFICATIONLEVEL"
-          />
+          >
+            <option value="">Select Field</option>
+            {workerColumns.map((col) => (
+              <option key={col} value={col}>
+                {col}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex flex-col">
-          <label className="text-sm">Operator</label>
+          <label className="text-lg">Operator</label>
           <select
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={workerOperator}
             onChange={(e) => setWorkerOperator(e.target.value)}
           >
@@ -120,47 +145,53 @@ export default function RuleManager({ rules, setRules }: RuleManagerProps) {
           </select>
         </div>
         <div className="flex flex-col">
-          <label className="text-sm">Value</label>
+          <label className="text-lg">Value</label>
           <input
-            className="bg-gray-800 text-white px-2 py-1 rounded"
+            className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
             value={workerValue}
             onChange={(e) => setWorkerValue(e.target.value)}
             placeholder="e.g., Senior"
           />
         </div>
-
-        {/* Max Tasks */}
-        <div className="flex flex-col">
-          <label className="text-sm">Max Tasks Per Worker</label>
-          <input
-            className="bg-gray-800 text-white px-2 py-1 rounded"
-            type="number"
-            min="1"
-            value={maxTasks}
-            onChange={(e) => setMaxTasks(e.target.value)}
-            placeholder="e.g., 2"
-          />
         </div>
+        {/* Max Tasks */}
+      <div className="flex flex-col">
+        <label className="text-lg">Max Tasks Per Worker</label>
+        <input
+          className="bg-[#6C6C6C] text-white px-2 py-2 border-none mt-1 rounded max-h-9"
+          type="number"
+          min="1"
+          value={maxTasks}
+          onChange={(e) => setMaxTasks(e.target.value)}
+          placeholder="e.g., 2"
+        />
+      </div>
       </div>
       <button
-        className="bg-green-500 text-black px-4 py-2 rounded font-semibold"
+        className="bg-green-600 text-white px-4 py-2 text-lg rounded font-semibold hover:bg-green-500"
         onClick={handleAddRule}
       >
         Add Rule
       </button>
 
+      </div>
+      <div className="w-1/3 px-5 py-3 overflow-y-auto max-h-[340px] ">
       {rules.length > 0 && (
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-2">Current Rules:</h3>
           <ul className="list-disc ml-4">
             {rules.map((r, idx) => (
-              <li key={idx} className="text-sm">
+              <li key={idx} className="text-md">
                 Task [{r.taskFilter.field} {r.taskFilter.operator} {r.taskFilter.value}] &amp; Worker [{r.workerFilter.field} {r.workerFilter.operator} {r.workerFilter.value}] — Max Tasks: {r.maxTasksPerWorker}
               </li>
             ))}
+
           </ul>
         </div>
       )}
+      </div>
+     
+
     </div>
   );
 }
