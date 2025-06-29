@@ -11,9 +11,9 @@ import { validateEntities } from "../lib/validateData";
 import { AllocationRule } from "../lib/types";
 import RuleManager from "../components/RuleManager";
 import { allocateTasks, Assignment } from "../lib/allocateTasks";
-import CustomCursor from "../components/CustomCursor";
 import { downloadFile, formatErrors, toCsv } from "../lib/helperFunctions";
 import ValidationSummary from "../components/validationSummary";
+import {motion} from "framer-motion";
 
 export default function DataPage() {
   // Rules
@@ -149,15 +149,15 @@ export default function DataPage() {
       </div>
 
       <main className="min-h-screen text-white p-10">
-        <div className="flex flex-col px-30">
-          <h1 className="text-3xl font-bold">Data Workspace</h1>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="flex flex-col px-30">
+          <h1 className="text-3xl font-bold" >Data Workspace</h1>
           <p className="mt-4 text-gray-400">
             Upload CSVs, validate data, create allocation rules, and generate assignments.
           </p>
-        </div>
+        </motion.div>
 
         {/* Upload Inputs */}
-        <div className="min-h-[20vh] mt-10 w-full px-30 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="min-h-[20vh] mt-10 w-full px-30 grid grid-cols-1 md:grid-cols-3 gap-6">
           <FileUploadCard
             title="Clients File"
             fileName={clientsFile}
@@ -191,10 +191,10 @@ export default function DataPage() {
               setTaskErrors(formatErrors(validation));
             }}
           />
-        </div>
+        </motion.div>
 
         {/* Rule Manager */}
-        <div className="mt-3 p-30 w-full">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="mt-2 p-30 w-full">
           <RuleManager
             rules={rules}
             setRules={setRules}
@@ -204,7 +204,7 @@ export default function DataPage() {
           <div className="mt-6 w-[50%]">
           <h2 className="text-2xl font-semibold mb-2">Set Prioritization Weights</h2>
 
-          <div className="space-y-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="space-y-4">
             {Object.keys(priorities).map((key) => (
               <div key={key}>
                 <label className="block text-lg font-medium text-gray-300 capitalize">
@@ -226,7 +226,7 @@ export default function DataPage() {
                 <span className="text-lg text-gray-400">{priorities[key as keyof typeof priorities]}%</span>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
           <button
@@ -235,10 +235,10 @@ export default function DataPage() {
           >
             Generate Assignments
           </button>
-        </div>
+        </motion.div>
 
         {/* Data Tables */}
-        <div className="flex flex-col gap-10 mb-20 px-30">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="flex flex-col gap-10 mb-20 px-30">
           <ValidationSummary
             title="Clients"
             errors={clientErrors}
@@ -282,7 +282,7 @@ export default function DataPage() {
               rows={assignments}
             />
           )}
-        </div>
+        </motion.div>
       </main>
     </div>
   );

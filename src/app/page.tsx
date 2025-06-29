@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import CustomCursor from './components/CustomCursor';
+import Footer from './components/Footer';
 
 const Page: FC = () => {
   return (
@@ -15,12 +16,14 @@ const Page: FC = () => {
           backgroundSize: "30px 30px",
         }}
       />
+      <main className="flex-grow flex flex-col items-center">
       <Header/>
         
 
       <HeroSection/>
-
+        </main>
     <CustomCursor/>
+      <Footer/>
     </div>
   );
 };

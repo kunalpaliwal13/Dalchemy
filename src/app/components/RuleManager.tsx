@@ -65,7 +65,7 @@ export default function RuleManager({
   };
     // bg-[#1B1B1B]/80
   return (
-    <div className="w-full bg-[#1B1B1B]/80 flex max-w-full gap-3 p-6 rounded-lg mt-4 shrink-0">
+    <div className="w-full bg-[#1B1B1B]/80 flex max-w-full gap-3 p-6 rounded-lg  shrink-0">
       
 
       <div className="w-2/3">
