@@ -6,7 +6,8 @@ export interface RuleCondition {
 
 export interface AllocationRule {
   id: string;
-  taskFilter: RuleCondition;
-  workerFilter: RuleCondition;
-  maxTasksPerWorker?: number;
+  taskFilter: { field: string; operator: string; value: string };
+  workerFilter: { field: string; operator: string; value: string };
+  maxTasksPerWorker: number;
+  priority: number; 
 }
