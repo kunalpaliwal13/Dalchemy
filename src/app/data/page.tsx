@@ -14,6 +14,7 @@ import { allocateTasks, Assignment } from "../lib/allocateTasks";
 import { downloadFile, formatErrors, toCsv } from "../lib/helperFunctions";
 import ValidationSummary from "../components/validationSummary";
 import {motion} from "framer-motion";
+import NaturalLanguageRuleInput from "../components/NaturalLanguageRuleInput";
 
 export default function DataPage() {
   // Rules
@@ -149,6 +150,8 @@ export default function DataPage() {
       </div>
 
       <main className="min-h-screen text-white p-10">
+       
+
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="flex flex-col px-30">
           <h1 className="text-3xl font-bold" >Data Workspace</h1>
           <p className="mt-4 text-gray-400">
@@ -194,14 +197,18 @@ export default function DataPage() {
         </motion.div>
 
         {/* Rule Manager */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="mt-2 p-30 w-full">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="mt-2 p-30 pt-5 w-full">
           <RuleManager
             rules={rules}
             setRules={setRules}
             taskColumns={taskColumns}
             workerColumns={workerColumns}
           />
-          <div className="mt-6 w-[50%]">
+          <NaturalLanguageRuleInput
+            onRuleGenerated={(rule) => setRules((prev) => [...prev, rule])}
+          />
+
+          <div className="mt-10 w-[50%]">
           <h2 className="text-2xl font-semibold mb-2">Set Prioritization Weights</h2>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="space-y-4">
@@ -244,12 +251,18 @@ export default function DataPage() {
             errors={clientErrors}
           />
           {clientsFile && (
-            <DataTable
-              title="Clients Data"
-              columns={clientColumns}
-              rows={clientRows}
-              errors={clientErrors}
-            />
+           <DataTable
+            title="Clients Data"
+            columns={clientColumns}
+            rows={clientRows}
+            errors={clientErrors}
+            onCellChange={(rowIdx, column, newVal) => {
+              const updated = [...clientRows];
+              updated[rowIdx][column] = newVal;
+              setClientRows(updated);
+            }}
+          />
+
           )}
             <ValidationSummary
               title="Workers"
@@ -261,6 +274,11 @@ export default function DataPage() {
               columns={workerColumns}
               rows={workerRows}
               errors={workerErrors}
+              onCellChange={(rowIdx, column, newVal) => {
+                const updated = [...workerRows];
+                updated[rowIdx][column] = newVal;
+                setWorkerRows(updated);
+              }}
             />
           )}
             <ValidationSummary
@@ -273,6 +291,11 @@ export default function DataPage() {
               columns={taskColumns}
               rows={taskRows}
               errors={taskErrors}
+             onCellChange={(rowIdx, column, newVal) => {
+              const updated = [...taskRows];
+              updated[rowIdx][column] = newVal;
+              setTaskRows(updated);
+            }}
             />
           )}
           {assignments.length > 0 && (
