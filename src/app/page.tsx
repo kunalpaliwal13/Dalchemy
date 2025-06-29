@@ -7,7 +7,8 @@ import Footer from './components/Footer';
 
 const Page: FC = () => {
   return (
-    <div className="min-h-screen w-full bg-black relative m-0 flex flex-col items-center">
+    <>
+    <div className="min-h-screen w-full bg-black relative m-0 lg:flex md:flex flex-col items-center hidden">
       <div
         className=" h-screen w-screen fixed z-0 py-10"
         style={{
@@ -16,7 +17,7 @@ const Page: FC = () => {
           backgroundSize: "30px 30px",
         }}
       />
-      <main className="flex-grow flex flex-col items-center">
+      <main className="flex-grow lg:flex md:flex  flex-col items-center ">
       <Header/>
         
 
@@ -25,6 +26,13 @@ const Page: FC = () => {
     <CustomCursor/>
       <Footer/>
     </div>
+        <div className="h-screen w-screen overflow-hidden flex flex-col items-center justify-between  bg-black text-white text-center px-4">
+        <h1 className='text-3xl text-green-400 bg-gray-950 w-screen p-5 font-semibold'>Dalchemy.io</h1>
+        <p>Please visit this site on a desktop device for the best experience.</p>
+        <div></div>
+        </div>
+
+    </>
   );
 };
 
