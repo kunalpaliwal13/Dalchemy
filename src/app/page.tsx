@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 const Page: FC = () => {
   return (
     <>
-    <div className="min-h-screen w-full bg-black relative m-0 lg:flex md:flex flex-col items-center hidden">
+    <div className="min-h-screen w-full bg-black relative m-0 lg:flex flex-col items-center hidden">
       <div
         className=" h-screen w-screen fixed z-0 py-10"
         style={{
