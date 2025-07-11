@@ -6,7 +6,8 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#1B1B1B] text-gray-400 py-10 bottom-0 px-4 mt-20 z-50 pb-10 absolute">
+    <footer className="z-50 w-screen relative bottom-0">
+    <div className="w-full bg-[#1B1B1B] text-gray-400 py-10 bottom-0 px-4 pb-10 ">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center ">
         {/* Left - Branding */}
         <div className="text-sm">
@@ -54,6 +55,7 @@ const Footer: React.FC = () => {
           </a>
         </div>
       </div>
+    </div>
     </footer>
   );
 };

@@ -11,6 +11,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { RiSettings3Line } from "react-icons/ri";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import { HiOutlineDownload } from "react-icons/hi";
+import Footer from "./Footer";
 const poppins = Poppins({
   weight: ['200'], // or whatever weights you need
   style: ['normal'],      // specify 'normal' style
@@ -55,7 +56,7 @@ const inter = Inter({subsets:["latin"],variable: '--font-inter',weight:['300']})
 const HeroSection = () => {
     return(
         <>
-        <div className="z-50 flex flex-col items-center mb-50">
+        <div className="z-50 flex flex-col items-center mb-50 pb-0 max-h-screen">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="z-50 mt-50 items-center flex flex-col" >
             <h1 className="text-6xl text-white font-medium tracking-tight">Transform Chaos into Clarity</h1>
    
@@ -88,10 +89,10 @@ const HeroSection = () => {
         <div className="z-50 w-full justify-center  items-center flex flex-col py-20 h-80 my-30">
             <motion.div  initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: "easeOut" }} className="text-white text-6xl font-medium">Control Your Data</motion.div>
            
-        <div className="grid grid-cols-3 gap-10 mt-10">
+        <div className="grid grid-cols-3 gap-10 mt-10 mb-40">
 
         {cards.map((card, idx) => (
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} className="mt-5 mb-10">
+          <motion.div key={idx} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} className="mt-5 mb-10">
           <InfoCard
             key={idx}
             heading={card.heading}
@@ -102,6 +103,9 @@ const HeroSection = () => {
 
         </div>
         </div>
+        
+
+        <Footer/>
 
         </div>
 
